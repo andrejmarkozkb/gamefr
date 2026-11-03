@@ -31,7 +31,6 @@ public class Fields extends Formats{
     public static long[] clickPowerUpgradeCosts = new long[]{10, 100};
     public static long[] generatorUpgradeCosts = new long[]{500, 100};
     public static Scanner input = new Scanner(System.in);
-    public static String topDownMenuFormatter = "════════════════════════════════════════════════";
     public static String inBetween = "";
     public static boolean clickWhile = true;
     public static ArrayList<String> unlockedFonts = new ArrayList<>();
@@ -42,9 +41,10 @@ public class Fields extends Formats{
     public static String[] selectedColorScheme = FIRE;
     public static boolean fancyMessages = false;
     public static final NumberFormat dollarFormatter = NumberFormat.getInstance(Locale.US);
-    public static String formattedBalance = "";
     public static final String unlockedText = "◈ VIEW ◈";
     public static final String maxedText = "◈ MAXED ◈";
     public static String colorType = "Multi";
+    public static String formattedBalance = "";
+    public static String topDownMenuFormatter = "=======================================";
 
 }
