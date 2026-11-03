@@ -1,9 +1,20 @@
 public class Menus extends Fields {
+    public static int[] spacesLeft = new int[]{19, 19};
+    public static int[] spacesRight = new int[]{17, 20};
+    public static int[] lengthSave = new int[]{1, 1};
+    public static String formattedClickPower = "";
+    public static String formattedProduction = "";
     public static void mainUpgradesMenu() {
         formattedBalance = dollarFormatter.format(balance);
         System.out.printf("╔══════════════════════════════════════════════════════════════════════════╗\n");
-        System.out.printf("║                           ◎ ◉ ◎ Upgrades ◎ ◉ ◎                           ║\n");
+        System.out.printf("║                      ░  ┳ ┳┏━┓┏━┓┳━┓┏━┓┏┳┓┏━┓┏━┓  ░                      ║\n");
+        System.out.printf("║                      ░  ┃ ┃┣━┛┃ ┳┣┳┛┣━┫ ┃┃┃┫ ┗━┓  ░                      ║\n");
+        System.out.printf("║                      ░  %s┗━┛┻  ┗━┛┻┗━┻ ┻━┻┛┗━┛┗━┛%s  ░                      ║\n", UNDERLINED, RESET);
         System.out.printf("╠══════════════════════════════════════════════════════════════════════════╣\n");
+        System.out.printf("║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  ║\n");
+        System.out.printf("║  ┃                   THIS IS THE MAIN UPGRADES MENU                   ┃  ║\n");
+        System.out.printf("║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛  ║\n");
+        System.out.printf("╠──────────────────────────────────────────────────────────────────────────╣\n");
         System.out.printf("║                                                   ┏" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┓");
         System.out.printf("║    Your Current Balance:                          ┃   %s%-" + (formattedBalance.length() + 3) + "s%-" + (15 - formattedBalance.length()) + "s║\n", currency.get(), formattedBalance, "┃");
         System.out.printf("║                                                   ┗" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┛");
@@ -34,8 +45,14 @@ public class Menus extends Fields {
     public static void clickUpgradesMenu() {
         formattedBalance = dollarFormatter.format(balance);
         System.out.printf("╔══════════════════════════════════════════════════════════════════════════╗\n");
-        System.out.printf("║                      ◇ ◈ ◇ Click Upgrade Shop ◇ ◈ ◇                      ║\n");
+        System.out.printf("║         ░  ┏━┓┳  ┳┏━┓┳┏━  ┳ ┳┏━┓┏━┓┳━┓┏━┓┏┳┓┏━┓  ┏━┓┳ ┳┏━┓┏━┓  ░         ║\n");
+        System.out.printf("║         ░  ┃  ┃  ┃┃  ┣┻┓  ┃ ┃┣━┛┃ ┳┣┳┛┣━┫ ┃┃┃┫   ┗━┓┣━┫┃ ┃┣━┛  ░         ║\n");
+        System.out.printf("║         ░  %s┗━┛┻━┛┻┗━┛┻ ┻  ┗━┛┻  ┗━┛┻┗━┻ ┻━┻┛┗━┛  ┗━┛┻ ┻┗━┛┻%s    ░         ║\n", UNDERLINED, RESET);
         System.out.printf("╠══════════════════════════════════════════════════════════════════════════╣\n");
+        System.out.printf("║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  ║\n");
+        System.out.printf("║  ┃                   THIS IS THE CLICK UPGRADES MENU                  ┃  ║\n");
+        System.out.printf("║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛  ║\n");
+        System.out.printf("╠──────────────────────────────────────────────────────────────────────────╣\n");
         System.out.printf("║                                                   ┏" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┓");
         System.out.printf("║    Your Current Balance:                          ┃   %s%-" + (formattedBalance.length() + 3) + "s%-" + (15 - formattedBalance.length()) + "s║\n", currency.get(), formattedBalance, "┃");
         System.out.printf("║                                                   ┗" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┛");
@@ -48,12 +65,33 @@ public class Menus extends Fields {
     }
     public static void clickPowerUpgradesMenu() {
         formattedBalance = dollarFormatter.format(balance);
+        formattedClickPower = dollarFormatter.format(moneyPerClick);
+        if (lengthSave[0] < formattedClickPower.length()) {
+            lengthSave[0] = formattedClickPower.length() - lengthSave[0];
+            if (lengthSave[0] == 2) {
+                spacesRight[0]--;
+                spacesLeft[0]--;
+            } else {
+                if (formattedClickPower.length() % 2 == 1) {
+                    spacesLeft[0]--;
+                } else {
+                    spacesRight[0]--;
+                }
+            }
+        }
+        lengthSave[0] = formattedClickPower.length();
         System.out.printf("╔══════════════════════════════════════════════════════════════════════════╗\n");
-        System.out.printf("║                       ◇ ◈ ◇ Click Power Shop ◇ ◈ ◇                       ║\n");
+        System.out.printf("║      ░  ┏━┓┳  ┳┏━┓┳┏━  ┏━┓┏━┓┳ ┳┏━┓┳━┓  ┳ ┳┏━┓┏━┓┳━┓┏━┓┏┳┓┏━┓┏━┓  ░      ║\n");
+        System.out.printf("║      ░  ┃  ┃  ┃┃  ┣┻┓  ┣━┛┃ ┃┃┃┃┃┫ ┣┳┛  ┃ ┃┣━┛┃ ┳┣┳┛┣━┫ ┃┃┃┫ ┗━┓  ░      ║\n");
+        System.out.printf("║      ░  %s┗━┛┻━┛┻┗━┛┻ ┻  ┻  ┗━┛┗┻┛┗━┛┻┗━  ┗━┛┻  ┗━┛┻┗━┻ ┻━┻┛┗━┛┗━┛%s  ░      ║\n", UNDERLINED, RESET);
         System.out.printf("╠══════════════════════════════════════════════════════════════════════════╣\n");
-        System.out.printf("║                                                   ┏" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┓");
-        System.out.printf("║    Your Current Balance:                          ┃   %s%-" + (formattedBalance.length() + 3) + "s%-" + (15 - formattedBalance.length()) + "s║\n", currency.get(), formattedBalance, "┃");
-        System.out.printf("║                                                   ┗" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┛");
+        System.out.printf("║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  ║\n");
+        System.out.printf("║  %-" + (spacesLeft[0]) + "sTOTAL CLICK POWER: %s%-" + (formattedClickPower.length()) + "s %-" + (spacesRight[0] + 10) + "s┃  ║\n", "┃", "+" + currency.get(), formattedClickPower, "PER CLICK");
+        System.out.printf("║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛  ║\n");
+        System.out.printf("╠──────────────────────────────────────────────────────────────────────────╣\n");
+        System.out.printf("║                                                   ╔" + "═".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "╗");
+        System.out.printf("║    Your Current Balance:                          ║   %s%-" + (formattedBalance.length() + 3) + "s%-" + (15 - formattedBalance.length()) + "s║\n", currency.get(), formattedBalance, "║");
+        System.out.printf("║                                                   ╚" + "═".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "╝");
         System.out.printf("╠──────────────────────────────────────────────────────────────────────────╣\n");
         if (unlockedClickPowerUpgrades[0] < 10) {
             System.out.printf("║    [1]  ❯ CLICK NOVICE ❮                          ┌" + "─".repeat(String.valueOf(clickPowerUpgradeCosts[0]).length() + 7) + "%-" + (15 - String.valueOf(clickPowerUpgradeCosts[0]).length()) + "s║\n", "┐");
@@ -78,9 +116,16 @@ public class Menus extends Fields {
     }
     public static void generatorUpgradesMenu() {
         formattedBalance = dollarFormatter.format(balance);
+        formattedBalance = dollarFormatter.format(balance);
         System.out.printf("╔══════════════════════════════════════════════════════════════════════════╗\n");
-        System.out.printf("║                    ◇ ◈ ◇ Generator Upgrades Shop ◇ ◈ ◇                   ║\n");
+        System.out.printf("║  ░  ┏━┓┏━┓┏┓┏┏━┓┳━┓┏━┓┏┳┓┏━┓┳━┓  ┳ ┳┏━┓┏━┓┳━┓┏━┓┏┳┓┏━┓  ┏━┓┳ ┳┏━┓┏━┓  ░  ║\n");
+        System.out.printf("║  ░  ┃ ┳┃┫ ┃┃┃┃┫ ┣┳┛┣━┫ ┃ ┃ ┃┣┳┛  ┃ ┃┣━┛┃ ┳┣┳┛┣━┫ ┃┃┃┫   ┗━┓┣━┫┃ ┃┣━┛  ░  ║\n");
+        System.out.printf("║  ░  %s┗━┛┗━┛┛┗┛┗━┛┻┗━┻ ┻ ┻ ┗━┛┻┗━  ┗━┛┻  ┗━┛┻┗━┻ ┻━┻┛┗━┛  ┗━┛┻ ┻┗━┛┻%s    ░  ║\n", UNDERLINED, RESET);
         System.out.printf("╠══════════════════════════════════════════════════════════════════════════╣\n");
+        System.out.printf("║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  ║\n");
+        System.out.printf("║  ┃                 THIS IS THE GENERATOR UPGRADES MENU                ┃  ║\n");
+        System.out.printf("║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛  ║\n");
+        System.out.printf("╠──────────────────────────────────────────────────────────────────────────╣\n");
         System.out.printf("║                                                   ┏" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┓");
         System.out.printf("║    Your Current Balance:                          ┃   %s%-" + (formattedBalance.length() + 3) + "s%-" + (15 - formattedBalance.length()) + "s║\n", currency.get(), formattedBalance, "┃");
         System.out.printf("║                                                   ┗" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┛");
@@ -93,9 +138,30 @@ public class Menus extends Fields {
     }
     public static void productionUpgradesMenu() {
         formattedBalance = dollarFormatter.format(balance);
+        formattedProduction = dollarFormatter.format(generatorMoneyPerTick.get());
+        if (lengthSave[1] < formattedProduction.length()) {
+            lengthSave[1] = formattedProduction.length() - lengthSave[1];
+            if (lengthSave[1] == 2) {
+                spacesRight[1]--;
+                spacesLeft[1]--;
+            } else {
+                if (formattedProduction.length() % 2 == 1) {
+                    spacesLeft[1]--;
+                } else {
+                    spacesRight[1]--;
+                }
+            }
+        }
+        lengthSave[1] = formattedProduction.length();
         System.out.printf("╔══════════════════════════════════════════════════════════════════════════╗\n");
-        System.out.printf("║                   ◇ ◈ ◇ Production Upgrades Shop ◇ ◈ ◇                   ║\n");
+        System.out.printf("║       ░  ┏━┓┳━┓┏━┓┏┳┓┳ ┳┏━┓┏┳┓┳┏━┓┏┓┏  ┳ ┳┏━┓┏━┓┳━┓┏━┓┏┳┓┏━┓┏━┓  ░       ║\n");
+        System.out.printf("║       ░  ┣━┛┣┳┛┃ ┃ ┃┃┃ ┃┃   ┃ ┃┃ ┃┃┃┃  ┃ ┃┣━┛┃ ┳┣┳┛┣━┫ ┃┃┃┫ ┗━┓  ░       ║\n");
+        System.out.printf("║       ░  %s┻  ┻┗━┗━┛━┻┛┗━┛┗━┛ ┻ ┻┗━┛┛┗┛  ┗━┛┻  ┗━┛┻┗━┻ ┻━┻┛┗━┛┗━┛%s  ░       ║\n", UNDERLINED, RESET);
         System.out.printf("╠══════════════════════════════════════════════════════════════════════════╣\n");
+        System.out.printf("║  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  ║\n");
+        System.out.printf("║  %-" + (spacesLeft[1]) + "sTOTAL PRODUCTION: %s%-" + (formattedProduction.length()) + "s %-" + (spacesRight[1] + 8) + "s┃  ║\n", "┃", "+" + currency.get(), formattedProduction, "PER TICK");
+        System.out.printf("║  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛  ║\n");
+        System.out.printf("╠──────────────────────────────────────────────────────────────────────────╣\n");
         System.out.printf("║                                                   ┏" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┓");
         System.out.printf("║    Your Current Balance:                          ┃   %s%-" + (formattedBalance.length() + 3) + "s%-" + (15 - formattedBalance.length()) + "s║\n", currency.get(), formattedBalance, "┃");
         System.out.printf("║                                                   ┗" + "━".repeat(formattedBalance.length() + 7) + "%-" + (15 - formattedBalance.length()) + "s║\n", "┛");
