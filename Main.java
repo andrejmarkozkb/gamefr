@@ -1,3 +1,7 @@
+package ClickerGame;
+
+import java.nio.charset.StandardCharsets;
+
 public class Main extends Fields {
 
     public static void main(String[] args) {
@@ -150,6 +154,16 @@ public class Main extends Fields {
         System.out.println(LIGHT_SLATE_GRAY + "LIGHT_SLATE_GRAY" + RESET);
         System.out.println(SLATE_GRAY + "SLATE_GRAY" + RESET);
         System.out.println(DARK_SLATE_GRAY + "DARK_SLATE_GRAY" + RESET);
+        System.out.println("test ");
+        System.out.println(System.getProperty("file.encoding"));
+        System.out.println(System.out.charset());
+        int r = 155;
+        int g = 15;
+        int b = 30;
+        System.out.printf("RGB: %d %d %d%n", r, g, b);
+        System.out.printf("\u001B[38;2;" + r + ";" + g + ";" + b +"mHallo\n");
+        System.out.printf("\u001B[38;2;155;15;30mHallo\n");
+        System.out.printf("\u001B[0m");
         displayMenu("StartMenu");
         while (clickWhile) {
             click();
@@ -171,13 +185,13 @@ public class Main extends Fields {
             displayMenu("CosmeticsMenu");
         } else if (currentInput.equals("end") || currentInput.equals("End") || currentInput.equals("stop") || currentInput.equals("Stop") || currentInput.equals("finish") || currentInput.equals("Finish")) {
             System.exit(0);
-        } else if ((currentInput.equals("P") || currentInput.equals("p") || currentInput.equals("Passive") || currentInput.equals("passive")) && unlockedGeneratorUpgrades[0] > 0) {
+        } else if ((currentInput.equals("P") || currentInput.equals("p") || currentInput.equals("Passive") || currentInput.equals("passive")) && unlockedGeneratorProductionUpgrades[0] > 0) {
             if (generatorToggled) {
                 Generator.generatorInterrupt();
             } else {
                 Generator.generatorResume();
             }
-        } else if ((currentInput.equals("M") || currentInput.equals("m") || currentInput.equals("Messages") || currentInput.equals("messages")) && unlockedGeneratorUpgrades[0] > 0) {
+        } else if ((currentInput.equals("M") || currentInput.equals("m") || currentInput.equals("Messages") || currentInput.equals("messages")) && unlockedGeneratorProductionUpgrades[0] > 0) {
             generatorMessages.set(!generatorMessages.get());
         } else if (currentInput.equals("D") || currentInput.equals("d")) {
             balance.set(balance.get() + 10000);
@@ -202,7 +216,7 @@ public class Main extends Fields {
             System.out.printf("[B / Show / Balance] Show Balance\n");
             System.out.printf("[U / Upgrades] Uprades Shop\n");
             System.out.printf("[S / Cosmetics] Cosmetic Shop\n");
-            if (unlockedGeneratorUpgrades[0] > 0) {
+            if (unlockedGeneratorProductionUpgrades[0] > 0) {
                 System.out.printf("[P / Passive] Toggle Passive Income\n");
                 System.out.printf("[M / Messages] Toggle Passive Income Messages\n");
             }
@@ -224,17 +238,17 @@ public class Main extends Fields {
             inBetween = String.valueOf(addToTotal[howMuch] * unlockedClickPowerUpgrades[howMuch]);
             moneyPerClick += addToTotal[howMuch];
             unlockedClickPowerUpgrades[howMuch]++;
-                if (fancyMessages) {
-                    System.out.printf("%sYour **%s%s%s%s** was upgraded! %s%s%s%s%s -> %s%s%d!%s\n", LIME, BOLD, displayMessage, RESET, LIME, YELLOW, BOLD, inBetween, RESET, LIME, YELLOW, BOLD, addToTotal[howMuch] * unlockedClickPowerUpgrades[howMuch], RESET);
-                } else {
-                    System.out.printf("Your **%s%s%s** was upgraded! %s%s%s -> %s%d!%s\n", BOLD, displayMessage, RESET,  BOLD, inBetween, RESET, BOLD, addToTotal[howMuch] * unlockedClickPowerUpgrades[howMuch], RESET);
-                }
+            if (fancyMessages) {
+                System.out.printf("%sYour **%s%s%s%s** was upgraded! %s%s%s%s%s -> %s%s%d!%s\n", LIME, BOLD, displayMessage, RESET, LIME, YELLOW, BOLD, inBetween, RESET, LIME, YELLOW, BOLD, addToTotal[howMuch] * unlockedClickPowerUpgrades[howMuch] / 100, RESET);
+            } else {
+                System.out.printf("Your **%s%s%s** was upgraded! %s%s%s -> %s%d!%s\n", BOLD, displayMessage, RESET,  BOLD, inBetween, RESET, BOLD, addToTotal[howMuch] * unlockedClickPowerUpgrades[howMuch] / 100, RESET);
+            }
 
         }
     }
 
     public static void notEnoughMoney(String what, long currentCost) {
-        System.out.printf("\n➤ %s%sYou dont have enough money to buy **%s%s%s%s**! Cost: %d $ | Balance: %d $%s\n", RED, BOLD, what, RESET, RED, BOLD, currentCost, balance.get(), RESET);
+        System.out.printf("\n➤ %s%sYou dont have enough money to buy **%s%s%s%s**! Cost: %d $ | Balance: %d $%s\n", RED, BOLD, what, RESET, RED, BOLD, currentCost, (int) balance.get() / 100, RESET);
 
     }
     public static void alreadyMaxedOut(String what) {
