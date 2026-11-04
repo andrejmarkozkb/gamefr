@@ -1,27 +1,36 @@
+package ClickerGame;
+
 import java.util.concurrent.TimeUnit;
 
 public class Generator extends Fields {
 
     public static Runnable generatorTasks = () -> {
-            long generatorIncome = generatorMoneyPerTick.get();
-            if (generatorIncome > 0) {
-                balance.addAndGet(generatorIncome);
-                if (generatorMessages.get() && menuToggleMessages.get()) {
-                    System.out.printf("[Generator] + %s%d\n", currency.get(), generatorMoneyPerTick.get());
-                }
+        long generatorIncome = generatorMoneyPerTick.get();
+        if (generatorIncome > 0) {
+            balance.addAndGet(generatorIncome);
+            if (generatorMessages.get() && menuToggleMessages.get()) {
+                System.out.printf("[Generator] + %s%d\n", currency.get(), generatorMoneyPerTick.get());
             }
+        }
 
     };
-    public static void passiveIncomeUpgrades(String what, int howMuch, String displayMessage) {
+    public static void generatorUpgrades(String what, int howMuch, String displayMessage) {
         if (what.equals("Unlock")) {
             generatorResume();
-            unlockedGeneratorUpgrades[0] = 1;
+            unlockedGeneratorProductionUpgrades[0] = 1;
             System.out.printf("You unlocked **Generator**!\n");
         } else if (what.equals("Production")) {
-            inBetween = String.valueOf(generatorAddToTotal[howMuch].get() * unlockedGeneratorUpgrades[0]);
+            inBetween = String.valueOf(generatorAddToTotal[howMuch].get() * unlockedGeneratorProductionUpgrades[howMuch]);
             generatorMoneyPerTick.set(generatorMoneyPerTick.get() + generatorAddToTotal[howMuch].get());
-            unlockedGeneratorUpgrades[0]++;
-            System.out.printf("Your **%s%s%s** was upgraded! %s%s%s -> %s%d!%s\n", BOLD, displayMessage, RESET,  BOLD, inBetween, RESET, BOLD, generatorAddToTotal[howMuch].get() * unlockedGeneratorUpgrades[howMuch], RESET);
+            unlockedGeneratorProductionUpgrades[howMuch]++;
+            System.out.printf("Your **%s%s%s** was upgraded! %s%s%s%s -> %s%s%d!%s\n", BOLD, displayMessage, RESET,  BOLD, currency.get(), inBetween, RESET, BOLD, currency.get(), generatorAddToTotal[howMuch].get() * unlockedGeneratorProductionUpgrades[howMuch], RESET);
+        } else if (what.equals("Efficiency")) {
+            inBetween = String.valueOf(generatorPeriodAddToTotal[howMuch].get() * unlockedGeneratorEfficiencyUpgrades[howMuch]);
+            generatorInterrupt();
+            generatorPeriod.set(generatorPeriod.get() - generatorPeriodAddToTotal[howMuch].get());
+            generatorResume();
+            unlockedGeneratorEfficiencyUpgrades[howMuch]++;
+            System.out.printf("Your **%s%s%s** was upgraded! %s%s%s%s -> %s%s%s!%s\n", BOLD, displayMessage, RESET,  BOLD, inBetween, "ms", RESET, BOLD, generatorPeriodAddToTotal[howMuch].get() * unlockedGeneratorEfficiencyUpgrades[howMuch], "ms", RESET);
         }
     }
 
