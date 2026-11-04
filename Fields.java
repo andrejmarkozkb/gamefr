@@ -18,7 +18,7 @@ public class Fields extends Formats{
     public static final AtomicLong generatorMoneyPerTick = new AtomicLong(100);
     public static final AtomicBoolean generatorMessages = new AtomicBoolean(true);
     public static final AtomicLong generatorPeriod = new AtomicLong(10000);
-    public static final AtomicLong[] generatorPeriodAddToTotal = new AtomicLong[]{new AtomicLong(20), new AtomicLong(50)};
+    public static final AtomicLong[] generatorPeriodAddToTotal = new AtomicLong[]{new AtomicLong(500), new AtomicLong(50)};
     public static final AtomicBoolean menuToggleMessages = new AtomicBoolean(true);
     public static final AtomicLong[] generatorAddToTotal = new AtomicLong[]{new AtomicLong(100), new AtomicLong(200)};
     public static long[] unlockedGeneratorProductionUpgrades = new long[]{0, 0};
@@ -31,7 +31,7 @@ public class Fields extends Formats{
     public static int maxUpgrades = 10;
     public static String currentInput = "";
     public static Scanner input = new Scanner(System.in);
-    public static String inBetween = "";
+    public static long inBetween = 0;
     public static boolean clickWhile = true;
     public static ArrayList<String> unlockedFonts = new ArrayList<>();
     public static String which = "";
@@ -41,12 +41,25 @@ public class Fields extends Formats{
     public static String[] selectedColorScheme = FIRE;
     public static boolean fancyMessages = false;
     public static final NumberFormat dollarFormatter = NumberFormat.getInstance(Locale.US);
+    public static final NumberFormat dollarFormatterNonDecimal = NumberFormat.getInstance(Locale.US);
     public static final String unlockedText = "◈ VIEW ◈";
     public static final String maxedText = "◈ MAXED ◈";
-    public static String colorType = "Multi";
+    public static String colorType = "Single";
     public static String formattedBalance = "";
     public static String topDownMenuFormatter = "=======================================";
     public static double doubleInBetween = 0;
-    public static double comboMultiplier = 1.15;
+    public static long[] generatorProductionUpgradeCosts = new long[]{500, 1000};
+    public static long[] generatorEfficiencyUpgradeCosts = new long[]{1000, 500};
+    public static long[] mainUpgradeCosts = new long[]{10, 100};
+    public static long[] clickPowerUpgradeCosts = new long[]{10, 100};
+    public static long[] fontCosts = new long[]{70, 100, 200, 500};
+    public static int comboCounter = 0;
+    public static long currentClickTime = 0;
+    public static long lastClickTime = 0;
+    public static long comboRequirement = 1000000000;
+    public static long comboMultiplier = 1;
+    public static long comboMaximum = 20;
+    public static long comboAddTo = 1;
+    public static boolean maxComboReached = false;
 
 }
