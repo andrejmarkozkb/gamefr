@@ -1,19 +1,13 @@
 package ClickerGame;
 
 public class BuyCosmetics extends Fields {
-    public static long[] fontCosts = new long[]{70, 100, 200, 500};
     public static void mainCosmetics() {
         menuToggleMessages.set(false);
-        System.out.printf("%s\n", topDownMenuFormatter);
-        System.out.printf("==Cosmetics==\n");
-        System.out.printf("-------------\n");
-        System.out.printf("[1 / Click Message Prefixes] Change how the main Click Message looks | Current: " + mainPrefix, moneyPerClick, currency, balance.get(), currency);
-        System.out.printf("%s\n", topDownMenuFormatter);
-        System.out.printf("Enter the Number or Name of the Cosmetic to view the list, Press Anything else to close the Menu...\n");
+        CosmeticMenus.mainCosmeticsMenu();
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("1") || which.equals("Click") || which.equals("click") || which.contains("main") || which.contains("Main")) {
-            clickPrefix();
+            mainClickMessage();
         } else {
             menuToggleMessages.set(true);
             which = "";
@@ -22,7 +16,7 @@ public class BuyCosmetics extends Fields {
 
     }
 
-    public static void clickPrefix() {
+    public static void mainClickMessage() {
         System.out.printf("%s\n", topDownMenuFormatter);
         System.out.printf("==Click Message Styling==\n");
         System.out.printf("-------------\n");
@@ -84,8 +78,8 @@ public class BuyCosmetics extends Fields {
         which = currentInput;
         if (which.equals("1") || which.equals("bold") || which.equals("Bold")) {
             if (!unlockedFonts.contains("Bold")) {
-                if (balance.get() >= fontCosts[0]) {
-                    balance.set(balance.get() - fontCosts[0]);
+                if (balance.get() >= fontCosts[0] * 100) {
+                    balance.set(balance.get() - fontCosts[0] * 100);
                     unlockedFonts.add("Bold");
                 } else {
                     Main.notEnoughMoney(BOLD + "Bold", fontCosts[0]);
@@ -102,8 +96,8 @@ public class BuyCosmetics extends Fields {
             clickMessageFonts();
         } else if (which.equals("2") || which.equals("italic") || which.equals("Italic")) {
             if (!unlockedFonts.contains("Italic")) {
-                if (balance.get() >= fontCosts[1]) {
-                    balance.set(balance.get() - fontCosts[1]);
+                if (balance.get() >= fontCosts[1] * 100) {
+                    balance.set(balance.get() - fontCosts[1] * 100);
                     unlockedFonts.add("Italic");
                 } else {
                     Main.notEnoughMoney(ITALIC + "Italic", fontCosts[1]);
@@ -120,8 +114,8 @@ public class BuyCosmetics extends Fields {
             clickMessageFonts();
         } else if (which.equals("3") || which.equals("underlined") || which.equals("Underlined") || which.equals("line") || which.equals("Line")) {
             if (!unlockedFonts.contains("Underlined")) {
-                if (balance.get() >= fontCosts[2]) {
-                    balance.set(balance.get() - fontCosts[2]);
+                if (balance.get() >= fontCosts[2] * 100) {
+                    balance.set(balance.get() - fontCosts[2] * 100);
                     unlockedFonts.add("Underlined");
                 } else {
                     Main.notEnoughMoney(UNDERLINED + "Underlined", fontCosts[2]);
@@ -138,8 +132,8 @@ public class BuyCosmetics extends Fields {
             clickMessageFonts();
         } else if (which.equals("4") || which.equals("strikethrough") || which.equals("Strikethrough") || which.equals("strike") || which.equals("Strike")) {
             if (!unlockedFonts.contains("Strikethrough")) {
-                if (balance.get() >= fontCosts[3]) {
-                    balance.set(balance.get() - fontCosts[3]);
+                if (balance.get() >= fontCosts[3] * 100) {
+                    balance.set(balance.get() - fontCosts[3] * 100);
                     unlockedFonts.add("Strikethrough");
                 } else {
                     Main.notEnoughMoney(STRIKETHROUGH + "Strikethrough", fontCosts[3]);
@@ -155,7 +149,7 @@ public class BuyCosmetics extends Fields {
             }
             clickMessageFonts();
         } else {
-            clickPrefix();
+            mainClickMessage();
         }
 
     }
