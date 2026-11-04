@@ -1,19 +1,15 @@
 package ClickerGame;
 
 public class BuyUpgrades extends Fields {
-    public static long[] generatorProductionUpgradeCosts = new long[]{500, 1000};
-    public static long[] generatorEfficiencyUpgradeCosts = new long[]{1000, 500};
-    public static long[] mainUpgradeCosts = new long[]{10, 100};
-    public static long[] clickPowerUpgradeCosts = new long[]{10, 100};
     public static void mainUpgrades() {
         menuToggleMessages.set(false);
-        Menus.mainUpgradesMenu();
+        UpgradeMenus.mainUpgradesMenu();
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("click upgrades") || which.equals("Click upgrades") || which.equals("1")) {
             if (unlockedClickPowerUpgrades[0] < 1) {
-                if (balance.get() >= mainUpgradeCosts[0]) {
-                    balance.set(balance.get() - mainUpgradeCosts[0]);
+                if (balance.get() >= mainUpgradeCosts[0] * 100) {
+                    balance.set(balance.get() - mainUpgradeCosts[0] * 100);
                     Main.clickUpgrades("Unlock", -1, "");
                     mainUpgrades();
                 } else {
@@ -25,8 +21,8 @@ public class BuyUpgrades extends Fields {
             }
         } else if (which.equals("generator") || which.equals("Generator") || which.equals("2")) {
             if (unlockedGeneratorProductionUpgrades[0] < 1) {
-                if (balance.get() >= mainUpgradeCosts[1]) {
-                    balance.set(balance.get() - mainUpgradeCosts[1]);
+                if (balance.get() >= mainUpgradeCosts[1] * 100) {
+                    balance.set(balance.get() - mainUpgradeCosts[1] * 100);
                     Generator.generatorUpgrades("Unlock", -1, "");
                     mainUpgrades();
                 } else {
@@ -46,7 +42,7 @@ public class BuyUpgrades extends Fields {
     }
 
     public static void clickUpgrades() {
-        Menus.clickUpgradesMenu();
+        UpgradeMenus.clickUpgradesMenu();
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("1") || which.equals("Click Power") || which.equals("click power") || which.contains("power") || which.contains("Power")) {
@@ -58,13 +54,13 @@ public class BuyUpgrades extends Fields {
     }
 
     public static void clickPowerUpgrades() {
-        Menus.clickPowerUpgradesMenu();
+        UpgradeMenus.clickPowerUpgradesMenu();
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("1") || which.equals("Click Novice") || which.equals("click novice") || which.contains("Novice") || which.contains("novice")) {
             if (unlockedClickPowerUpgrades[0] < 10) {
-                if (balance.get() >= clickPowerUpgradeCosts[0]) {
-                    balance.set(balance.get() - clickPowerUpgradeCosts[0]);
+                if (balance.get() >= clickPowerUpgradeCosts[0] * 100) {
+                    balance.set(balance.get() - clickPowerUpgradeCosts[0] * 100);
                     clickPowerUpgradeCosts[0] += 50L * unlockedClickPowerUpgrades[0];
                     Main.clickUpgrades("ClickPower", 0, "CLICK NOVICE");
                     clickPowerUpgrades();
@@ -78,9 +74,9 @@ public class BuyUpgrades extends Fields {
             }
         } else if (which.equals("2") || which.equals("Click Rookie") || which.equals("click rookie") || which.contains("Rookie") || which.contains("rookie")) {
             if (unlockedClickPowerUpgrades[1] < 10) {
-                if (balance.get() >= clickPowerUpgradeCosts[1]) {
-                    balance.set(balance.get() - clickPowerUpgradeCosts[1]);
-                    clickPowerUpgradeCosts[1] += 50L * unlockedClickPowerUpgrades[1];
+                if (balance.get() >= clickPowerUpgradeCosts[1] * 100) {
+                    balance.set(balance.get() - clickPowerUpgradeCosts[1] * 100);
+                    clickPowerUpgradeCosts[1] *= 2;
                     Main.clickUpgrades("ClickPower", 1, "CLICK ROOKIE");
                     clickPowerUpgrades();
                 } else {
@@ -100,7 +96,7 @@ public class BuyUpgrades extends Fields {
     }
 
     public static void generatorUpgrades() {
-        Menus.generatorUpgradesMenu();
+        UpgradeMenus.generatorUpgradesMenu();
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("1") || which.contains("Production") || which.contains("production")) {
@@ -114,13 +110,13 @@ public class BuyUpgrades extends Fields {
     }
 
     public static void productionUpgrades() {
-        Menus.productionUpgradesMenu();
+        UpgradeMenus.productionUpgradesMenu();
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("1") || which.equals("Improved Production") || which.equals("improved production") || which.contains("improved") || which.contains("Improved")) {
             if (unlockedGeneratorProductionUpgrades[0] < 10) {
-                if (balance.get() >= generatorProductionUpgradeCosts[0]) {
-                    balance.set(balance.get() - generatorProductionUpgradeCosts[0]);
+                if (balance.get() >= generatorProductionUpgradeCosts[0] * 100) {
+                    balance.set(balance.get() - generatorProductionUpgradeCosts[0] * 100);
                     generatorProductionUpgradeCosts[0] += 100;
                     Generator.generatorUpgrades("Production", 0, "IMPROVED PRODUCTION");
                     productionUpgrades();
@@ -138,13 +134,13 @@ public class BuyUpgrades extends Fields {
 
     }
     public static void efficiencyUpgrades() {
-        Menus.efficiencyUpgradesMenu();
+        UpgradeMenus.efficiencyUpgradesMenu();
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("1") || which.equals("Improved Efficiency") || which.equals("improved efficiency") || which.contains("improved") || which.contains("Improved")) {
             if (unlockedGeneratorEfficiencyUpgrades[0] < 10) {
-                if (balance.get() >= generatorEfficiencyUpgradeCosts[0]) {
-                    balance.set(balance.get() - generatorEfficiencyUpgradeCosts[0]);
+                if (balance.get() >= generatorEfficiencyUpgradeCosts[0] * 100) {
+                    balance.set(balance.get() - generatorEfficiencyUpgradeCosts[0] * 100);
                     generatorProductionUpgradeCosts[0] += 100;
                     Generator.generatorUpgrades("Efficiency", 0, "IMPROVED EFFICIENCY");
                     efficiencyUpgrades();
