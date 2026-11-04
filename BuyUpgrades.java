@@ -1,4 +1,10 @@
+package ClickerGame;
+
 public class BuyUpgrades extends Fields {
+    public static long[] generatorProductionUpgradeCosts = new long[]{500, 1000};
+    public static long[] generatorEfficiencyUpgradeCosts = new long[]{1000, 500};
+    public static long[] mainUpgradeCosts = new long[]{10, 100};
+    public static long[] clickPowerUpgradeCosts = new long[]{10, 100};
     public static void mainUpgrades() {
         menuToggleMessages.set(false);
         Menus.mainUpgradesMenu();
@@ -11,20 +17,20 @@ public class BuyUpgrades extends Fields {
                     Main.clickUpgrades("Unlock", -1, "");
                     mainUpgrades();
                 } else {
-                    Main.notEnoughMoney("Click Upgrades", mainUpgradeCosts[0]);
+                    Main.notEnoughMoney("CLICK UPGRADES", mainUpgradeCosts[0]);
                     mainUpgrades();
                 }
             } else {
                 clickUpgrades();
             }
-        } else if (which.equals("Passive Income") || which.equals("passive income") || which.equals("2")) {
-            if (unlockedGeneratorUpgrades[0] < 1) {
+        } else if (which.equals("generator") || which.equals("Generator") || which.equals("2")) {
+            if (unlockedGeneratorProductionUpgrades[0] < 1) {
                 if (balance.get() >= mainUpgradeCosts[1]) {
                     balance.set(balance.get() - mainUpgradeCosts[1]);
-                    Generator.passiveIncomeUpgrades("Unlock", -1, "");
+                    Generator.generatorUpgrades("Unlock", -1, "");
                     mainUpgrades();
                 } else {
-                    Main.notEnoughMoney("Passive Income Upgrades", mainUpgradeCosts[1]);
+                    Main.notEnoughMoney("GENERATOR UPGRADES", mainUpgradeCosts[1]);
                     mainUpgrades();
                 }
 
@@ -99,6 +105,8 @@ public class BuyUpgrades extends Fields {
         which = currentInput;
         if (which.equals("1") || which.contains("Production") || which.contains("production")) {
             productionUpgrades();
+        } else if (which.equals("2") || which.contains("Speed") || which.contains("speed") || which.contains("Efficiency") || which.contains("efficiency")) {
+            efficiencyUpgrades();
         } else {
             mainUpgrades();
         }
@@ -110,19 +118,43 @@ public class BuyUpgrades extends Fields {
         currentInput = input.nextLine();
         which = currentInput;
         if (which.equals("1") || which.equals("Improved Production") || which.equals("improved production") || which.contains("improved") || which.contains("Improved")) {
-            if (unlockedGeneratorUpgrades[0] < 10) {
-                if (balance.get() >= generatorUpgradeCosts[0]) {
-                    balance.set(balance.get() - generatorUpgradeCosts[0]);
-                    generatorUpgradeCosts[0] += 100;
-                    Generator.passiveIncomeUpgrades("Production", 0, "IMPROVED PRODUCTION");
+            if (unlockedGeneratorProductionUpgrades[0] < 10) {
+                if (balance.get() >= generatorProductionUpgradeCosts[0]) {
+                    balance.set(balance.get() - generatorProductionUpgradeCosts[0]);
+                    generatorProductionUpgradeCosts[0] += 100;
+                    Generator.generatorUpgrades("Production", 0, "IMPROVED PRODUCTION");
                     productionUpgrades();
                 } else {
-                    Main.notEnoughMoney("IMPROVED PRODUCTION", generatorUpgradeCosts[0]);
+                    Main.notEnoughMoney("IMPROVED PRODUCTION", generatorProductionUpgradeCosts[0]);
                     productionUpgrades();
                 }
             } else {
                 Main.alreadyMaxedOut("IMPROVED PRODUCTION");
                 productionUpgrades();
+            }
+        } else {
+            generatorUpgrades();
+        }
+
+    }
+    public static void efficiencyUpgrades() {
+        Menus.efficiencyUpgradesMenu();
+        currentInput = input.nextLine();
+        which = currentInput;
+        if (which.equals("1") || which.equals("Improved Efficiency") || which.equals("improved efficiency") || which.contains("improved") || which.contains("Improved")) {
+            if (unlockedGeneratorEfficiencyUpgrades[0] < 10) {
+                if (balance.get() >= generatorEfficiencyUpgradeCosts[0]) {
+                    balance.set(balance.get() - generatorEfficiencyUpgradeCosts[0]);
+                    generatorProductionUpgradeCosts[0] += 100;
+                    Generator.generatorUpgrades("Efficiency", 0, "IMPROVED EFFICIENCY");
+                    efficiencyUpgrades();
+                } else {
+                    Main.notEnoughMoney("IMPROVED EFFICIENCY", generatorEfficiencyUpgradeCosts[0]);
+                    efficiencyUpgrades();
+                }
+            } else {
+                Main.alreadyMaxedOut("IMPROVED EFFICIENCY");
+                efficiencyUpgrades();
             }
         } else {
             generatorUpgrades();
