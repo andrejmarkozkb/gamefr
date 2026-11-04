@@ -1,3 +1,5 @@
+package ClickerGame;
+
 public class Formats {
     public static final String RESET = "\033[0m";
     public static final String COLORLESS = "";
