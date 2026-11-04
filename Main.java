@@ -1,8 +1,9 @@
 package ClickerGame;
 
-import java.nio.charset.StandardCharsets;
-
 public class Main extends Fields {
+    public static long currentClickTime = 0;
+    public static long lastClickTime = 0;
+    public static long comboRequirement = 1000000000;
 
     public static void main(String[] args) {
         System.out.println(INDIAN_RED + "INDIAN_RED" + RESET);
@@ -165,6 +166,7 @@ public class Main extends Fields {
         System.out.printf("\u001B[38;2;155;15;30mHallo\n");
         System.out.printf("\u001B[0m");
         displayMenu("StartMenu");
+        dollarFormatter.setMinimumFractionDigits(2);
         while (clickWhile) {
             click();
         }
@@ -173,8 +175,26 @@ public class Main extends Fields {
     public static void click() {
         currentInput = input.nextLine();
         if (currentInput.isEmpty()) {
-            balance.addAndGet(moneyPerClick);
-            System.out.printf(Painter.formatClickMessage());
+            balance.addAndGet(moneyPerClick + moneyPerClick * comboAddTo / 100);
+            currentClickTime = System.nanoTime();
+            if (comboCounter == comboMaximum) {
+                maxComboReached = true;
+            } else {
+                maxComboReached = false;
+            }
+            if (currentClickTime - lastClickTime < comboRequirement) {
+                if (!maxComboReached) {
+                    comboCounter++;
+                    if (comboCounter % 10 == 0) {
+                        comboAddTo++;
+                    }
+                }
+            } else {
+                comboCounter = 0;
+                comboAddTo = 0;
+            }
+            lastClickTime = System.nanoTime();
+            System.out.printf("%s", Painter.formatClickMessage());
         } else if (currentInput.equals("C") || currentInput.equals("c") || currentInput.equals("controls") || currentInput.equals("Controls")) {
             displayMenu("ControlsMenu");
         } else if (currentInput.equals("B") || currentInput.equals("b") || currentInput.equals("show") || currentInput.equals("Show") || currentInput.equals("balance") || currentInput.equals("Balance")) {
@@ -194,7 +214,7 @@ public class Main extends Fields {
         } else if ((currentInput.equals("M") || currentInput.equals("m") || currentInput.equals("Messages") || currentInput.equals("messages")) && unlockedGeneratorProductionUpgrades[0] > 0) {
             generatorMessages.set(!generatorMessages.get());
         } else if (currentInput.equals("D") || currentInput.equals("d")) {
-            balance.set(balance.get() + 10000);
+            balance.set(balance.get() + 1000000);
         }
     }
 
@@ -235,7 +255,7 @@ public class Main extends Fields {
             unlockedClickPowerUpgrades[0] = 1;
             System.out.printf("You unlocked **Click Upgrades**!\n");
         } else if (what.equals("ClickPower")) {
-            inBetween = String.valueOf(addToTotal[howMuch] * unlockedClickPowerUpgrades[howMuch]);
+            inBetween = addToTotal[howMuch] * unlockedClickPowerUpgrades[howMuch] / 100;
             moneyPerClick += addToTotal[howMuch];
             unlockedClickPowerUpgrades[howMuch]++;
             if (fancyMessages) {
@@ -248,7 +268,7 @@ public class Main extends Fields {
     }
 
     public static void notEnoughMoney(String what, long currentCost) {
-        System.out.printf("\n➤ %s%sYou dont have enough money to buy **%s%s%s%s**! Cost: %d $ | Balance: %d $%s\n", RED, BOLD, what, RESET, RED, BOLD, currentCost, (int) balance.get() / 100, RESET);
+        System.out.printf("\n➤ %s%sYou dont have enough money to buy **%s%s%s%s**! Cost: %d $ | Balance: %d $%s\n", RED, BOLD, what, RESET, RED, BOLD, currentCost, balance.get() / 100, RESET);
 
     }
     public static void alreadyMaxedOut(String what) {
