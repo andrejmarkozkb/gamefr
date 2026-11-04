@@ -9,7 +9,7 @@ public class Generator extends Fields {
         if (generatorIncome > 0) {
             balance.addAndGet(generatorIncome);
             if (generatorMessages.get() && menuToggleMessages.get()) {
-                System.out.printf("[Generator] + %s%d\n", currency.get(), generatorMoneyPerTick.get());
+                System.out.printf("[Generator] + %s%d\n", currency.get(), (int) generatorMoneyPerTick.get() / 100);
             }
         }
 
@@ -20,12 +20,12 @@ public class Generator extends Fields {
             unlockedGeneratorProductionUpgrades[0] = 1;
             System.out.printf("You unlocked **Generator**!\n");
         } else if (what.equals("Production")) {
-            inBetween = String.valueOf(generatorAddToTotal[howMuch].get() * unlockedGeneratorProductionUpgrades[howMuch]);
+            inBetween = generatorAddToTotal[howMuch].get() * unlockedGeneratorProductionUpgrades[howMuch] / 100;
             generatorMoneyPerTick.set(generatorMoneyPerTick.get() + generatorAddToTotal[howMuch].get());
             unlockedGeneratorProductionUpgrades[howMuch]++;
-            System.out.printf("Your **%s%s%s** was upgraded! %s%s%s%s -> %s%s%d!%s\n", BOLD, displayMessage, RESET,  BOLD, currency.get(), inBetween, RESET, BOLD, currency.get(), generatorAddToTotal[howMuch].get() * unlockedGeneratorProductionUpgrades[howMuch], RESET);
+            System.out.printf("Your **%s%s%s** was upgraded! %s%s%d%s -> %s%s%d!%s\n", BOLD, displayMessage, RESET,  BOLD, currency.get(), inBetween, RESET, BOLD, currency.get(), generatorAddToTotal[howMuch].get() * unlockedGeneratorProductionUpgrades[howMuch] / 100, RESET);
         } else if (what.equals("Efficiency")) {
-            inBetween = String.valueOf(generatorPeriodAddToTotal[howMuch].get() * unlockedGeneratorEfficiencyUpgrades[howMuch]);
+            inBetween = generatorPeriodAddToTotal[howMuch].get() * unlockedGeneratorEfficiencyUpgrades[howMuch];
             generatorInterrupt();
             generatorPeriod.set(generatorPeriod.get() - generatorPeriodAddToTotal[howMuch].get());
             generatorResume();
