@@ -1,4 +1,7 @@
+package ClickerGame;
+
 public class BuyCosmetics extends Fields {
+    public static long[] fontCosts = new long[]{70, 100, 200, 500};
     public static void mainCosmetics() {
         menuToggleMessages.set(false);
         System.out.printf("%s\n", topDownMenuFormatter);
